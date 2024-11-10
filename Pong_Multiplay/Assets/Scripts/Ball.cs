@@ -13,7 +13,7 @@ public class Ball : MonoBehaviourPun
     {
         rb = GetComponent<Rigidbody2D>();
         
-        if(!photonView.IsMine)
+        if(photonView.IsMine)
         {
             Launch();
         }
