@@ -29,8 +29,11 @@ public class Ball : MonoBehaviourPun
 
     public void Reset()
     {
-        rb.velocity = Vector2.zero;
-        transform.position = Vector2.zero;
-        Invoke("Launch", 1f);
+        if (photonView.IsMine)
+        {
+            rb.velocity = Vector2.zero;
+            transform.position = Vector2.zero;
+            Invoke("Launch", 1f);
+        }
     }
 }

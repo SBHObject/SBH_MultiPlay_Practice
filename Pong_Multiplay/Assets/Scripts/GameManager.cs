@@ -53,18 +53,25 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void Player1Scored()
     {
-        player1Score++;
-        player1Text.text = player1Score.ToString();
-        ResetPosition();
+        if (photonView.AmOwner)
+        {
+            player1Score++;
+            ResetPosition();
+            photonView.RPC(nameof(UpdateScore), RpcTarget.All, player1Score, player2Score);
+        }
     }
 
     public void Player2Scored()
     {
-        player2Score++;
-        player2Text.text = player2Score.ToString();
-        ResetPosition();
+        if (photonView.AmOwner)
+        {
+            player2Score++;
+            ResetPosition();
+            photonView.RPC(nameof(UpdateScore), RpcTarget.All, player1Score, player2Score);
+        }
     }
 
+    [PunRPC]
     public void UpdateScore(int score1, int scroe2)
     {
         player1Text.text = score1.ToString();
