@@ -15,7 +15,7 @@ public class Goal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name.Equals("Ball"))
+        if(collision.name.Contains("Ball"))
         {
             if(isPlayer1Goal)
             {

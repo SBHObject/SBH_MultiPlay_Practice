@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Ball : MonoBehaviour
+public class Ball : MonoBehaviourPun
 {
     public float speed;
-    public Rigidbody2D rigidbody;
+    public Rigidbody2D rb;
 
     
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        Launch();
+        rb = GetComponent<Rigidbody2D>();
+        
+        if(!photonView.IsMine)
+        {
+            Launch();
+        }
     }
 
     private void Launch()
@@ -19,13 +24,13 @@ public class Ball : MonoBehaviour
         float x = Random.Range(0, 2) == 0 ? -1 : 1;
         float y = Random.Range(0, 2) == 0 ? -1 : 1;
 
-        rigidbody.velocity = new Vector2(x* speed, y* speed);
+        rb.velocity = new Vector2(x* speed, y* speed);
     }
 
     public void Reset()
     {
-        rigidbody.velocity = Vector2.zero;
+        rb.velocity = Vector2.zero;
         transform.position = Vector2.zero;
-        Launch();
+        Invoke("Launch", 1f);
     }
 }

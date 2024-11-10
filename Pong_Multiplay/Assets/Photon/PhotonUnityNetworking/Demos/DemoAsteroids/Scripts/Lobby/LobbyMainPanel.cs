@@ -168,8 +168,12 @@ namespace Photon.Pun.Demo.Asteroids
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
-            Destroy(playerListEntries[otherPlayer.ActorNumber].gameObject);
-            playerListEntries.Remove(otherPlayer.ActorNumber);
+            GameObject entry;
+            if(playerListEntries.TryGetValue(otherPlayer.ActorNumber, out entry))
+            {
+                Destroy(playerListEntries[otherPlayer.ActorNumber].gameObject);
+                playerListEntries.Remove(otherPlayer.ActorNumber);
+            }
 
             StartGameButton.gameObject.SetActive(CheckPlayersReady());
         }
@@ -272,7 +276,7 @@ namespace Photon.Pun.Demo.Asteroids
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
-            PhotonNetwork.LoadLevel("DemoAsteroids-GameScene");
+            PhotonNetwork.LoadLevel(1);
         }
 
         #endregion
