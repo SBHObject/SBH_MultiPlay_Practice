@@ -57,6 +57,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks //클래스 상속
         // 예를 들어, 특정 수의 플레이어가 필요한 게임 시작 로직을 구현할 수 있습니다.
         if(currentPlayers == PhotonNetwork.CurrentRoom.MaxPlayers)
         {
+            //모두가 1번씬 로드
             PhotonNetwork.LoadLevel(1);
         }
         else
